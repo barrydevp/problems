@@ -1,3 +1,5 @@
+// https://oj.vnoi.info/problem/liq
+
 fn main() {
     // read input from stdin
     let mut input = String::new();

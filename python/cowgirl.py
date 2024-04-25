@@ -1,3 +1,5 @@
+# https://oj.vnoi.info/problem/cowgirl
+
 mask = 3
 
 

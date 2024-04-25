@@ -1,3 +1,5 @@
+// https://dmoj.ca/problem/pegg
+
 #[macro_use]
 extern crate dmoj;
 

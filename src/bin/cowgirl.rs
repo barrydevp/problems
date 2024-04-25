@@ -1,3 +1,5 @@
+// https://oj.vnoi.info/problem/cowgirl
+
 // const V: [usize; 2] = [0, 15];
 
 fn check_fn(a: usize, b: usize, n: usize) -> bool {

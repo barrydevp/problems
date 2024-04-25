@@ -1,3 +1,5 @@
+# https://oj.vnoi.info/problem/egg
+
 ntest = int(input())
 tc = []
 

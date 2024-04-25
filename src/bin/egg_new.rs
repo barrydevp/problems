@@ -1,3 +1,5 @@
+// https://oj.vnoi.info/problem/egg
+
 const N: usize = 1001;
 const M: usize = 1001;
 

@@ -1,3 +1,5 @@
+// https://dmoj.ca/problem/pegg
+
 const std = @import("std");
 const io = std.io;
 const fmt = std.fmt;
