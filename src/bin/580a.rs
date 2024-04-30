@@ -1,4 +1,4 @@
-// https://codeforces.com/problemset/problem/996/a
+// https://codeforces.com/problemset/problem/580/a
 
 #[allow(unused_imports)]
 use std::cmp::{max, min};
@@ -21,21 +21,25 @@ impl Scanner {
     }
 }
 
-const BILLS: [u32; 5] = [100, 20, 10, 5, 1];
-
 fn main() {
     let mut scan = Scanner::default();
     let out = &mut BufWriter::new(stdout());
 
-    let mut n = scan.next::<u32>();
+    let n = scan.next::<usize>();
 
-    let mut r = 0;
+    let a = (0..n).map(|_| scan.next::<u32>()).collect::<Vec<u32>>();
 
-    for b in BILLS {
-        r += n / b;
-        n %= b;
+    let mut max = 1;
+    let mut cur = 1;
+    for i in 1..n {
+        cur = if a[i - 1] > a[i] {
+            max = max.max(cur);
+            1
+        } else {
+            cur + 1
+        };
     }
+    max = max.max(cur);
 
-    writeln!(out, "{}", r).ok();
+    writeln!(out, "{}", max).ok();
 }
-
