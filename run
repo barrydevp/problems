@@ -1,13 +1,19 @@
 #!/bin/bash
 
+# Source
 DMOJ="dmoj-site"
 VNOI=""
 RUST_SRC="."
 ZIG_SRC="zig"
+C_SRC="c"
+CPP_SRC="cpp"
 PYTHON_SRC="python"
 
+# Compiler
 CARGO="cargo"
 ZIG="zig"
+CC="gcc"
+CPP="g++"
 PYTHON="python"
 PYTHON3="python3"
 
@@ -17,9 +23,11 @@ help() {
     run --rs|zig|py <problem_id>
 
   Options:
-    -r, --rs    Rust lang source
-    -z, --zig   Zig lang source
-    -p, --py    Python lang source
+    -r, --rs    Rust source
+    -z, --zig   Zig source
+    -c, --cpp   C++ source
+        --c     C source
+    -p, --py    Python source
     -h, --help  Display help message
 EOF
 }
@@ -41,6 +49,16 @@ run_zig() {
   $ZIG build run -Dproblem=$@
 }
 
+run_cpp() {
+  cd CPP_SRC$
+  $CPP $@.cpp
+}
+
+run_c() {
+  cd C_SRC$
+  $CC $@.c
+}
+
 run_python() {
   cd $PYTHON_SRC
   $PYTHON3 $@.py
@@ -52,6 +70,12 @@ case "$1" in
   ;;
 --zig | -z)
   run_zig ${@:2}
+  ;;
+--cpp | -c)
+  run_cpp ${@:2}
+  ;;
+--c)
+  run_c ${@:2}
   ;;
 --py | -p)
   run_python ${@:2}
