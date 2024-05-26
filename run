@@ -50,12 +50,12 @@ run_zig() {
 }
 
 run_cpp() {
-  cd CPP_SRC$
+  cd $CPP_SRC
   $CPP $@.cpp
 }
 
 run_c() {
-  cd C_SRC$
+  cd $C_SRC
   $CC $@.c
 }
 
