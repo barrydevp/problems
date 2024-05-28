@@ -1,5 +1,9 @@
 // https://oj.vnoi.info/problem/bedao_r06_exams
 
+// Using math qpproach instead of dynamic programming remove the use of memory
+// https://oj.vnoi.info/problem/bedao_r06_exams/editorial
+// https://math.stackexchange.com/questions/2057238/proof-by-induction-of-the-sum-abcd-2
+
 #[macro_use]
 extern crate dmoj;
 
