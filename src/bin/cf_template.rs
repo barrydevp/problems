@@ -1,3 +1,5 @@
+// https://codeforces.com/contest/1999/problem/A
+
 #[allow(unused_imports)]
 use std::cmp::{max, min};
 use std::io::{stdin, stdout, BufWriter, Write};
@@ -23,11 +25,9 @@ fn main() {
     let mut scan = Scanner::default();
     let out = &mut BufWriter::new(stdout());
 
-    let n = scan.next::<usize>();
-
-    for _ in 0..n {
-        let x = scan.next::<usize>();
-        let y = scan.next::<usize>();
-        writeln!(out, "{} {}", x, y).ok();
+    let nt = scan.next::<usize>();
+    for _ in 0..nt {
+        let (n, m) = (scan.next::<usize>(), scan.next::<usize>());
+        writeln!(out, "{} {}", n, m).ok();
     }
 }
