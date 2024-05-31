@@ -1,63 +1,62 @@
 // https://codeforces.com/contest/1976/problem/C
 
 #[allow(unused_imports)]
-use std::cmp::{max, min};
-use std::io::{stdin, stdout, BufWriter, Write};
-
-#[derive(Default)]
-struct Scanner {
-    buffer: Vec<String>,
-}
-impl Scanner {
-    fn next<T: std::str::FromStr>(&mut self) -> T {
-        loop {
-            if let Some(token) = self.buffer.pop() {
-                return token.parse().ok().expect("Failed parse");
-            }
-            let mut input = String::new();
-            stdin().read_line(&mut input).expect("Failed read");
-            self.buffer = input.split_whitespace().rev().map(String::from).collect();
-        }
-    }
-}
+use std::io::{self, BufRead};
+use std::vec::Vec;
 
 fn main() {
-    let mut scan = Scanner::default();
-    let out = &mut BufWriter::new(stdout());
+    let stdin = io::stdin();
+    let mut lines = stdin.lock().lines();
 
-    let nt = scan.next::<usize>();
+    let nt: usize = lines.next().unwrap().unwrap().trim().parse().unwrap();
 
     for _ in 0..nt {
-        let n = scan.next::<usize>();
-        let m = scan.next::<usize>();
-        let s = n + m + 1;
-        let a = (0..s).map(|_| scan.next::<i64>()).collect::<Vec<i64>>();
-        let b = (0..s).map(|_| scan.next::<i64>()).collect::<Vec<i64>>();
+        let nm: Vec<usize> = lines
+            .next()
+            .unwrap()
+            .unwrap()
+            .split_whitespace()
+            .map(|s| s.parse().unwrap())
+            .collect();
+        let (n, m) = (nm[0], nm[1]);
 
-        let mut p = 0;
+        let a: Vec<i32> = lines
+            .next()
+            .unwrap()
+            .unwrap()
+            .split_whitespace()
+            .map(|s| s.parse().unwrap())
+            .collect();
+        let b: Vec<i32> = lines
+            .next()
+            .unwrap()
+            .unwrap()
+            .split_whitespace()
+            .map(|s| s.parse().unwrap())
+            .collect();
+        let s = n + m + 1;
+
+        let mut p: i64 = 0;
         let mut ip = 0;
         let mut np = n + 1;
         while np > 0 {
             if a[ip] > b[ip] || np == (s - ip) {
-                p += a[ip];
+                p += a[ip] as i64;
                 np -= 1;
             }
             ip += 1;
         }
 
-        let mut t = 0;
+        let mut t: i64 = 0;
         let mut it = 0;
         let mut nt = m + 1;
         while nt > 0 {
             if a[it] < b[it] || nt == (s - it) {
-                t += b[it];
+                t += b[it] as i64;
                 nt -= 1;
             }
             it += 1;
         }
-
-        // writeln!(out, "ip, it: {} {}", ip, it).ok();
-        // writeln!(out, "p, t: {} {}", p, t).ok();
 
         // My mind is fucking blow by this, finally it could AC
         for i in 0..s {
@@ -65,21 +64,21 @@ fn main() {
 
             if a[i] > b[i] {
                 if i + 1 < ip {
-                    r -= a[i];
-                    r -= b[(ip - 1).min(it - 1)];
+                    r -= a[i] as i64;
+                    r -= b[(ip - 1).min(it - 1)] as i64;
                 } else {
-                    r -= a[ip - 1];
-                    r -= b[(it - 1).min(i)];
+                    r -= a[ip - 1] as i64;
+                    r -= b[(it - 1).min(i)] as i64;
                 }
             } else if i + 1 < it {
-                r -= b[i];
-                r -= a[(it - 1).min(ip - 1)];
+                r -= b[i] as i64;
+                r -= a[(it - 1).min(ip - 1)] as i64;
             } else {
-                r -= b[it - 1];
-                r -= a[(ip - 1).min(i)];
+                r -= b[it - 1] as i64;
+                r -= a[(ip - 1).min(i)] as i64;
             }
-            write!(out, "{} ", r).ok();
+            print!("{} ", r);
         }
-        writeln!(out).ok();
+        println!();
     }
 }
