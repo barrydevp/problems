@@ -21,6 +21,32 @@ impl Scanner {
     }
 }
 
+// another use
+// fn main() {
+//     let mut scan = Scanner::default();
+//     let out = &mut BufWriter::new(stdout());
+//
+//     let nt = scan.next::<usize>();
+//     for _ in 0..nt {
+//         let n = scan.next::<usize>();
+//
+//         let mut ans = 0;
+//         let mut max = 0;
+//         let mut sum = 0;
+//
+//         for _ in 0..n {
+//             let x = scan.next::<usize>();
+//             max = max.max(x as u64);
+//             sum += x as u64;
+//             if sum == max * 2 {
+//                 ans += 1;
+//             }
+//         }
+//
+//         writeln!(out, "{}", ans).ok();
+//     }
+// }
+
 fn main() {
     let mut scan = Scanner::default();
     let out = &mut BufWriter::new(stdout());
@@ -64,16 +90,6 @@ fn main() {
             }
         }
 
-        // if nt == 10000 {
-        //     if t == 510 {
-        //         writeln!(out, "{}", ans).ok();
-        //         for i in 1..=n {
-        //             writeln!(out, "{} ", a[i] - a[i - 1]).ok();
-        //         }
-        //         writeln!(out, "{:?}", a).ok();
-        //     }
-        // } else {
-            writeln!(out, "{}", ans).ok();
-        // }
+        writeln!(out, "{}", ans).ok();
     }
 }
