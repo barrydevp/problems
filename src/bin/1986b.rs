@@ -22,6 +22,9 @@ impl Scanner {
     fn next_vec<T: std::str::FromStr>(&mut self, n: usize) -> Vec<T> {
         (0..n).map(|_| self.next::<T>()).collect()
     }
+    fn next_chars(&mut self) -> Vec<char> {
+        self.next::<String>().chars().collect()
+    }
     fn next_line(&mut self) -> String {
         let mut input = String::new();
         stdin().read_line(&mut input).expect("Failed read");
