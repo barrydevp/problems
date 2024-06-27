@@ -52,11 +52,13 @@ run_zig() {
 run_cpp() {
   cd $CPP_SRC
   $CPP $@.cpp
+  ./a.out
 }
 
 run_c() {
   cd $C_SRC
   $CC $@.c
+  ./a.out
 }
 
 run_python() {
