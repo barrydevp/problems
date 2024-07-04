@@ -1,0 +1,89 @@
+#!/bin/bash
+
+# exit on error
+set -e
+
+# Source
+CODEFORCES="codeforces"
+DMOJ="dmoj"
+VNOI="dmoj"
+RUST_SRC="rust"
+ZIG_SRC="zig"
+C_SRC="c"
+CPP_SRC="cpp"
+PYTHON_SRC="python"
+
+# Language
+RUST_LANG="rust"
+ZIG_LANG="zig"
+CPP_LANG="cpp"
+C_LANG="c"
+PYTHON_LANG="python"
+
+# Compiler
+CARGO="cargo"
+ZIG="zig"
+CC="gcc"
+CPP="g++"
+PYTHON="python"
+PYTHON3="python3"
+
+# Variables
+SITE=$CODEFORCES
+SRC=""
+LANGUAGE=""
+ARGS=()
+META=()
+
+select_platform() {
+  case "$1" in
+  --rs | -r)
+    LANGUAGE=$RUST_LANG
+    SRC=$RUST_SRC
+    ;;
+  --zig | -z)
+    LANGUAGE=$ZIG_LANG
+    SRC=$ZIG_SRC
+    ;;
+  --cpp | -c)
+    LANGUAGE=$CPP_LANG
+    SRC=$CPP_SRC
+    ;;
+  --c)
+    LANGUAGE=$C_LANG
+    SRC=$C_SRC
+    ;;
+  --py | -p)
+    LANGUAGE=$PYTHON_LANG
+    SRC=$PYTHON_SRC
+    ;;
+  *)
+    help
+    ;;
+  esac
+}
+
+select_site() {
+  case "$1" in
+  --cf)
+    SITE=$CODEFORCES
+    META=($(echo $2 | sed -E 's/([0-9]+)([a-z])/\1 \2/'))
+    ;;
+  --dm)
+    SITE=$DMOJ
+    ;;
+  *)
+    help
+    ;;
+  esac
+}
+
+setup_environment() {
+  select_platform $1
+  select_site ${@:2}
+
+  cd $LANGUAGE/$SITE
+  ARGS=${@:3}
+}
+
+setup_environment $@

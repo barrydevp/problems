@@ -9,7 +9,7 @@ source ./setup
 help() {
   cat <<EOF
   Usage:
-    run --rs|zig|py --cf|dm <problem_id>
+    clean --rs|zig|py --cf|dm <problem>
 
   Options:
     -r, --rs    Rust source
@@ -26,48 +26,50 @@ help() {
 EOF
 }
 
-run_rust() {
-  $CARGO run --bin $@
+clean_rust() {
+  if ! [ -f ${META[0]}/Cargo.toml ]; then
+    $CARGO clean
+  else
+    echo "No code"
+  fi
 }
 
-run_zig() {
-  $ZIG build run -Dproblem=$@
+clean_zig() {
+  echo "TODO"
 }
 
-run_cpp() {
-  $CPP $@.cpp
-  ./a.out
+clean_cpp() {
+  echo "TODO"
 }
 
-run_c() {
-  $CC $@.c
-  ./a.out
+clean_c() {
+  echo "TODO"
 }
 
-run_python() {
-  $PYTHON3 $@.py
+clean_python() {
+  echo "TODO"
 }
 
-run_code() {
+clean_code() {
   if [ ${#META[@]} -ne 0 ]; then
     cd ${META[0]}
   fi
 
   case $LANGUAGE in
   $RUST_LANG)
-    run_rust $ARGS
+    clean_rust $ARGS
     ;;
   $ZIG_LANG)
-    run_zig $ARGS
+    clean_zig $ARGS
     ;;
   $CPP_LANG)
-    run_cpp $ARGS
+    clean_cpp $ARGS
     ;;
   $C_LANG)
-    run_c $ARGS
+    clean_c $ARGS
     ;;
   $PYTHON_LANG)
-    run_python $ARGS
+    clean_python $ARGS
     ;;
   *)
     help
@@ -75,4 +77,4 @@ run_code() {
   esac
 }
 
-run_code
+clean_code

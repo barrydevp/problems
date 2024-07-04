@@ -1,0 +1,79 @@
+#!/bin/bash
+
+# exit on error
+set -e
+
+# Import
+source ./setup
+
+help() {
+  cat <<EOF
+  Usage:
+    create --rs|zig|py --cf|dm <problem>
+
+  Options:
+    -r, --rs    Rust source
+    -z, --zig   Zig source
+    -c, --cpp   C++ source
+        --c     C source
+    -p, --py    Python source
+
+    --cf        Codeforces
+    --dm        DMOJ based (VNOI, DMOJ)
+
+    -h, --help  Display help message
+
+EOF
+}
+
+create_rust() {
+  mkdir -p ${META[0]}/src/bin/
+
+  if ! [ -f ${META[0]}/Cargo.toml ]; then
+    $CARGO init --lib --name "cf${META[0]}" ${META[0]}
+  fi
+  if ! [ -f ${META[0]}/src/bin/"${MTEA[0]}.rs" ]; then
+    touch ${META[0]}/src/bin/"${META[0]}a.rs"
+  fi
+}
+
+create_zig() {
+  echo "TODO"
+}
+
+create_cpp() {
+  echo "TODO"
+}
+
+create_c() {
+  echo "TODO"
+}
+
+create_python() {
+  echo "TODO"
+}
+
+create_code() {
+  case $LANGUAGE in
+  $RUST_LANG)
+    create_rust $ARGS
+    ;;
+  $ZIG_LANG)
+    create_zig $ARGS
+    ;;
+  $CPP_LANG)
+    create_cpp $ARGS
+    ;;
+  $C_LANG)
+    create_c $ARGS
+    ;;
+  $PYTHON_LANG)
+    create_python $ARGS
+    ;;
+  *)
+    help
+    ;;
+  esac
+}
+
+create_code
