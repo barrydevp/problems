@@ -28,12 +28,14 @@ EOF
 
 create_rust() {
   mkdir -p ${META[0]}/src/bin/
+  cd ${META[0]}
 
-  if ! [ -f ${META[0]}/Cargo.toml ]; then
-    $CARGO init --lib --name "cf${META[0]}" ${META[0]}
+  if ! [ -f "./Cargo.toml" ]; then
+    $CARGO init --lib --name "cf${META[0]}"
+    rm -rf ./src/lib.rs
   fi
-  if ! [ -f ${META[0]}/src/bin/"${MTEA[0]}.rs" ]; then
-    touch ${META[0]}/src/bin/"${META[0]}a.rs"
+  if ! [ -f "./src/bin/${META[0]}.rs" ]; then
+    touch ./src/bin/"${META[0]}a.rs"
   fi
 }
 
