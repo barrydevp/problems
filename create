@@ -56,6 +56,11 @@ create_python() {
 }
 
 create_code() {
+  if [ "$HELP_FLAG" = true ]; then
+    help
+    exit 1
+  fi
+
   case $LANGUAGE in
   $RUST_LANG)
     create_rust $ARGS

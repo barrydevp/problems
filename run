@@ -49,6 +49,11 @@ run_python() {
 }
 
 run_code() {
+  if [ "$HELP_FLAG" = true ]; then
+    help
+    exit 1
+  fi
+
   if [ ${#META[@]} -ne 0 ]; then
     cd ${META[0]}
   fi

@@ -34,6 +34,7 @@ SRC=""
 LANGUAGE=""
 ARGS=()
 META=()
+HELP_FLAG=false
 
 select_platform() {
   case "$1" in
@@ -58,7 +59,7 @@ select_platform() {
     SRC=$PYTHON_SRC
     ;;
   *)
-    help
+    HELP_FLAG=true
     ;;
   esac
 }
@@ -72,17 +73,34 @@ select_site() {
   --dm)
     SITE=$DMOJ
     ;;
+  --none)
+    SITE=""
+    ;;
   *)
-    help
+    HELP_FLAG=true
     ;;
   esac
 }
 
 setup_environment() {
   select_platform $1
-  select_site ${@:2}
+  if [ "$HELP_FLAG" = true ]; then
+    return
+  fi
 
-  cd $LANGUAGE/$SITE
+  select_site ${@:2}
+  if [ "$HELP_FLAG" = true ]; then
+    return
+  fi
+
+  if [ ! -z "$LANGUAGE" ]; then
+    cd $LANGUAGE
+  fi
+
+  if [ ! -z "$SITE" ]; then
+    cd $SITE
+  fi
+
   ARGS=${@:3}
 }
 
