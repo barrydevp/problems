@@ -1,33 +1,30 @@
 #include <iostream>
+#include <numeric>
 #include <vector>
 using namespace std;
-#define neg1 cout << -1 << endl
+
+using ll = long long;
 
 int main() {
-  int n;
-  cin >> n;
-  vector<int> v(n);
-  for (int i = 0; i < n; i++) {
-    cin >> v[i];
-  }
+  cin.tie(nullptr)->sync_with_stdio(false);
 
-  int mn = INT_MAX, sm = 1e9, tot = 0;
-  vector<int> res(n);
-  for (int i = 0; i < n; i++) {
-    int curr = (sm / v[i]) + 1;
-    mn = min(mn, curr * v[i]);
-    tot += curr;
-    res[i] = curr;
-  }
+  int tests;
+  cin >> tests;
+  while (tests--) {
+    int n;
+    ll x;
+    cin >> n >> x;
+    vector<ll> a(n + 1);
+    for (int i = 1; i <= n; ++i) cin >> a[i];
+    partial_sum(a.begin() + 1, a.end(), a.begin() + 1);
+    // for (int i = 0; i <= n; ++i) cout << a[i] << ' ';
+    // cout << endl;
 
-  if (sm < mn && tot < mn) {
-    // print_vec(res);
-    for (int i = 0; i < n; i++) {
-      cout << res[i] << " ";
+    vector<int> dp(n + 2);
+    for (int i = n; i > 0; --i) {
+      auto q = upper_bound(a.begin(), a.end(), a[i - 1] + x);
+      dp[i] = dp[q + 1] + q - i;
     }
-    return 0;
+    cout << accumulate(dp.begin(), dp.end(), 0ll) << '\n';
   }
-  neg1;
-
-  return 0;
 }
