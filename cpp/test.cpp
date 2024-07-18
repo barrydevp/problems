@@ -22,7 +22,7 @@ int main() {
 
     vector<int> dp(n + 2);
     for (int i = n; i > 0; --i) {
-      auto q = upper_bound(a.begin(), a.end(), a[i - 1] + x);
+      auto q = upper_bound(a.begin(), a.end(), a[i - 1] + x) - a.start();
       dp[i] = dp[q + 1] + q - i;
     }
     cout << accumulate(dp.begin(), dp.end(), 0ll) << '\n';
