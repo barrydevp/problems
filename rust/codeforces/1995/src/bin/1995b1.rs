@@ -1,4 +1,4 @@
-// https://codeforces.com/contest/1995/problem/B
+// https://codeforces.com/contest/1995/problem/B1
 
 #[allow(unused_imports)]
 use std::cmp::{max, min};

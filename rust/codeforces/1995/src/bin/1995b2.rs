@@ -1,4 +1,4 @@
-// https://codeforces.com/contest/1995/problem/B
+// https://codeforces.com/contest/1995/problem/B2
 
 #[allow(unused_imports)]
 use std::cmp::{max, min};
@@ -70,21 +70,28 @@ fn main() {
                 break;
             }
             if i < (n - 1) && a[i].0 == a[i + 1].0 - 1 {
-                let x = m / a[i].0;
-                if x <= a[i].1 {
-                    ans = max(ans, x * a[i].0 + (m - x * a[i].0).min(x).min(a[i + 1].1));
-                    // println!("1:{}", ans);
-                } else {
-                    let y = (m - a[i].1 * a[i].0) / a[i + 1].0;
-                    if y <= a[i + 1].1 {
-                        let c1 = a[i].1 * a[i].0 + y * a[i + 1].0;
-                        ans = max(ans, c1 + (m - c1).min(a[i].1).min(a[i + 1].1 - y));
-                        // println!("2:{}", ans);
-                    } else {
-                        ans = max(ans, a[i].1 * a[i].0 + a[i + 1].1 * a[i + 1].0);
-                        // println!("3:{}", ans);
-                    }
-                }
+                // let x = m / a[i].0;
+                // if x <= a[i].1 {
+                //     ans = max(ans, x * a[i].0 + (m - x * a[i].0).min(x).min(a[i + 1].1));
+                //     // println!("1:{}", ans);
+                // } else {
+                //     let y = (m - a[i].1 * a[i].0) / a[i + 1].0;
+                //     if y <= a[i + 1].1 {
+                //         let c1 = a[i].1 * a[i].0 + y * a[i + 1].0;
+                //         ans = max(ans, c1 + (m - c1).min(a[i].1).min(a[i + 1].1 - y));
+                //         // println!("2:{}", ans);
+                //     } else {
+                //         ans = max(ans, a[i].1 * a[i].0 + a[i + 1].1 * a[i + 1].0);
+                //         // println!("3:{}", ans);
+                //     }
+                // }
+
+                let x = (m / a[i].0).min(a[i].1);
+                let y = ((m - x * a[i].0) / a[i + 1].0).min(a[i + 1].1);
+                // now sell as much flower a[i] and buy as much flower a[i+1] as possible
+                // because we can replace flow a[i] by a[i+1] to increase cost by 1
+                let s = x.min(a[i + 1].1 - y).min(m - x * a[i].0 - y * a[i + 1].0);
+                ans = max(ans, x * a[i].0 + y * a[i + 1].0 + s);
             } else {
                 ans = max(ans, min(c, m / a[i].0 * a[i].0));
                 // println!("4:{}", ans);
