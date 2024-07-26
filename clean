@@ -7,7 +7,7 @@ set -e
 source ./setup
 
 help() {
-  cat <<EOF
+	cat <<EOF
   Usage:
     clean --rs|zig|py --cf|dm <problem|empty for all>
 
@@ -28,68 +28,72 @@ EOF
 
 clean_rust() {
 
-  if [ ${#META[@]} -eq 0 ]; then
-    # going through all the directories
-    for dir in $(ls -d */); do
-      if [ -f ${dir}Cargo.toml ]; then
-        cd $dir
-        $CARGO clean
-        cd ..
-      fi
-    done
+	if [ ${#META[@]} -eq 0 ]; then
+		# going through all the directories
+		for dir in $(ls -d */); do
+			if [ -f ${dir}Cargo.toml ]; then
+				cd $dir
+				$CARGO clean
+				cd ..
+			fi
+		done
 
-    return
-  fi
+		return
+	fi
 
-  if ! [ -f ${META[0]}/Cargo.toml ]; then
-    $CARGO clean
-  else
-    echo "No code"
-  fi
+	if ! [ -f ${META[0]}/Cargo.toml ]; then
+		$CARGO clean
+	else
+		echo "No code"
+	fi
 }
 
 clean_zig() {
-  echo "TODO"
+	echo "TODO"
 }
 
 clean_cpp() {
-  echo "TODO"
+	echo "TODO"
 }
 
 clean_c() {
-  echo "TODO"
+	echo "TODO"
 }
 
 clean_python() {
-  echo "TODO"
+	echo "TODO"
 }
 
 clean_code() {
-  if [ ${#META[@]} -ne 0 ]; then
-    cd ${META[0]}
-  fi
+	if [ "$HELP_FLAG" = true ]; then
+		help
+		exit 1
+	fi
 
-  case $LANGUAGE in
-  $RUST_LANG)
-    clean_rust $ARGS
-    ;;
-  $ZIG_LANG)
-    clean_zig $ARGS
-    ;;
-  $CPP_LANG)
-    clean_cpp $ARGS
-    ;;
-  $C_LANG)
-    clean_c $ARGS
-    ;;
-  $PYTHON_LANG)
-    clean_python $ARGS
-    ;;
-  *)
-    help
-    ;;
-  esac
+	if [ ${#META[@]} -ne 0 ]; then
+		cd ${META[0]}
+	fi
+
+	case $LANGUAGE in
+	$RUST_LANG)
+		clean_rust $ARGS
+		;;
+	$ZIG_LANG)
+		clean_zig $ARGS
+		;;
+	$CPP_LANG)
+		clean_cpp $ARGS
+		;;
+	$C_LANG)
+		clean_c $ARGS
+		;;
+	$PYTHON_LANG)
+		clean_python $ARGS
+		;;
+	*)
+		help
+		;;
+	esac
 }
 
 clean_code
-

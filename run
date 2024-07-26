@@ -7,7 +7,7 @@ set -e
 source ./setup
 
 help() {
-  cat <<EOF
+	cat <<EOF
   Usage:
     run --rs|zig|py --cf|dm <problem_id>
 
@@ -27,57 +27,57 @@ EOF
 }
 
 run_rust() {
-  $CARGO run --bin $@
+	$CARGO run --bin $@
 }
 
 run_zig() {
-  $ZIG build run -Dproblem=$@
+	$ZIG build run -Dproblem=$@
 }
 
 run_cpp() {
-  $CPP $@.cpp
-  ./a.out
+	$CPP $@.cpp
+	./a.out
 }
 
 run_c() {
-  $CC $@.c
-  ./a.out
+	$CC $@.c
+	./a.out
 }
 
 run_python() {
-  $PYTHON3 $@.py
+	$PYTHON3 $@.py
 }
 
 run_code() {
-  if [ "$HELP_FLAG" = true ]; then
-    help
-    exit 1
-  fi
+	if [ "$HELP_FLAG" = true ]; then
+		help
+		exit 1
+	fi
 
-  if [ ${#META[@]} -ne 0 ]; then
-    cd ${META[0]}
-  fi
+	if [ ${#META[@]} -ne 0 ]; then
+		cd ${META[0]}
+	fi
 
-  case $LANGUAGE in
-  $RUST_LANG)
-    run_rust $ARGS
-    ;;
-  $ZIG_LANG)
-    run_zig $ARGS
-    ;;
-  $CPP_LANG)
-    run_cpp $ARGS
-    ;;
-  $C_LANG)
-    run_c $ARGS
-    ;;
-  $PYTHON_LANG)
-    run_python $ARGS
-    ;;
-  *)
-    help
-    ;;
-  esac
+	case $LANGUAGE in
+	$RUST_LANG)
+		run_rust $ARGS
+		;;
+	$ZIG_LANG)
+		run_zig $ARGS
+		;;
+	$CPP_LANG)
+		run_cpp $ARGS
+		;;
+	$C_LANG)
+		run_c $ARGS
+		;;
+	$PYTHON_LANG)
+		run_python $ARGS
+		;;
+	*)
+		help
+		;;
+	esac
 }
 
 run_code

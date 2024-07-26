@@ -37,71 +37,71 @@ META=()
 HELP_FLAG=false
 
 select_platform() {
-  case "$1" in
-  --rs | -r)
-    LANGUAGE=$RUST_LANG
-    SRC=$RUST_SRC
-    ;;
-  --zig | -z)
-    LANGUAGE=$ZIG_LANG
-    SRC=$ZIG_SRC
-    ;;
-  --cpp | -c)
-    LANGUAGE=$CPP_LANG
-    SRC=$CPP_SRC
-    ;;
-  --c)
-    LANGUAGE=$C_LANG
-    SRC=$C_SRC
-    ;;
-  --py | -p)
-    LANGUAGE=$PYTHON_LANG
-    SRC=$PYTHON_SRC
-    ;;
-  *)
-    HELP_FLAG=true
-    ;;
-  esac
+	case "$1" in
+	--rs | -r)
+		LANGUAGE=$RUST_LANG
+		SRC=$RUST_SRC
+		;;
+	--zig | -z)
+		LANGUAGE=$ZIG_LANG
+		SRC=$ZIG_SRC
+		;;
+	--cpp | -c)
+		LANGUAGE=$CPP_LANG
+		SRC=$CPP_SRC
+		;;
+	--c)
+		LANGUAGE=$C_LANG
+		SRC=$C_SRC
+		;;
+	--py | -p)
+		LANGUAGE=$PYTHON_LANG
+		SRC=$PYTHON_SRC
+		;;
+	*)
+		HELP_FLAG=true
+		;;
+	esac
 }
 
 select_site() {
-  case "$1" in
-  --cf)
-    SITE=$CODEFORCES
-    META=($(echo $2 | sed -E 's/([0-9]+)([a-z])/\1 \2/'))
-    ;;
-  --dm)
-    SITE=$DMOJ
-    ;;
-  --none)
-    SITE=""
-    ;;
-  *)
-    HELP_FLAG=true
-    ;;
-  esac
+	case "$1" in
+	--cf)
+		SITE=$CODEFORCES
+		META=($(echo $2 | sed -E 's/([0-9]+)([a-z])/\1 \2/'))
+		;;
+	--dm)
+		SITE=$DMOJ
+		;;
+	--none)
+		SITE=""
+		;;
+	*)
+		HELP_FLAG=true
+		;;
+	esac
 }
 
 setup_environment() {
-  select_platform $1
-  if [ "$HELP_FLAG" = true ]; then
-    return
-  fi
+	select_platform $1
+	if [ "$HELP_FLAG" = true ]; then
+		return
+	fi
 
-  select_site ${@:2}
-  if [ "$HELP_FLAG" = true ]; then
-    return
-  fi
+	select_site ${@:2}
+	if [ "$HELP_FLAG" = true ]; then
+		return
+	fi
 
-  if [ ! -z "$LANGUAGE" ]; then
-    cd $LANGUAGE
-  fi
+	if [ ! -z "$LANGUAGE" ]; then
+		cd $LANGUAGE
+	fi
 
-  if [ ! -z "$SITE" ]; then
-    cd $SITE
-  fi
+	if [ ! -z "$SITE" ]; then
+		cd $SITE
+	fi
 
-  ARGS=${@:3}
+	ARGS=${@:3}
 }
 
 setup_environment $@

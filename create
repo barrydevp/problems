@@ -7,7 +7,7 @@ set -e
 source ./setup
 
 help() {
-  cat <<EOF
+	cat <<EOF
   Usage:
     create --rs|zig|py --cf|dm <problem>
 
@@ -27,60 +27,60 @@ EOF
 }
 
 create_rust() {
-  mkdir -p ${META[0]}/src/bin/
-  cd ${META[0]}
+	mkdir -p ${META[0]}/src/bin/
+	cd ${META[0]}
 
-  if ! [ -f "./Cargo.toml" ]; then
-    $CARGO init --lib --name "cf${META[0]}"
-    rm -rf ./src/lib.rs
-  fi
-  if ! [ -f "./src/bin/${META[0]}.rs" ]; then
-    touch ./src/bin/"${META[0]}a.rs"
-  fi
+	if ! [ -f "./Cargo.toml" ]; then
+		$CARGO init --lib --name "cf${META[0]}"
+		rm -rf ./src/lib.rs
+	fi
+	if ! [ -f "./src/bin/${META[0]}.rs" ]; then
+		touch ./src/bin/"${META[0]}a.rs"
+	fi
 }
 
 create_zig() {
-  echo "TODO"
+	echo "TODO"
 }
 
 create_cpp() {
-  echo "TODO"
+	echo "TODO"
 }
 
 create_c() {
-  echo "TODO"
+	echo "TODO"
 }
 
 create_python() {
-  echo "TODO"
+	echo "TODO"
 }
 
 create_code() {
-  if [ "$HELP_FLAG" = true ]; then
-    help
-    exit 1
-  fi
+	if [ "$HELP_FLAG" = true ]; then
+		help
+		exit 1
+	fi
 
-  case $LANGUAGE in
-  $RUST_LANG)
-    create_rust $ARGS
-    ;;
-  $ZIG_LANG)
-    create_zig $ARGS
-    ;;
-  $CPP_LANG)
-    create_cpp $ARGS
-    ;;
-  $C_LANG)
-    create_c $ARGS
-    ;;
-  $PYTHON_LANG)
-    create_python $ARGS
-    ;;
-  *)
-    help
-    ;;
-  esac
+	case $LANGUAGE in
+	$RUST_LANG)
+		create_rust $ARGS
+		;;
+	$ZIG_LANG)
+		create_zig $ARGS
+		;;
+	$CPP_LANG)
+		create_cpp $ARGS
+		;;
+	$C_LANG)
+		create_c $ARGS
+		;;
+	$PYTHON_LANG)
+		create_python $ARGS
+		;;
+	*)
+		help
+		;;
+	esac
 }
 
 create_code
