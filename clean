@@ -9,7 +9,7 @@ source ./setup
 help() {
   cat <<EOF
   Usage:
-    clean --rs|zig|py --cf|dm <problem>
+    clean --rs|zig|py --cf|dm <problem|empty for all>
 
   Options:
     -r, --rs    Rust source
@@ -27,6 +27,20 @@ EOF
 }
 
 clean_rust() {
+
+  if [ ${#META[@]} -eq 0 ]; then
+    # going through all the directories
+    for dir in $(ls -d */); do
+      if [ -f ${dir}Cargo.toml ]; then
+        cd $dir
+        $CARGO clean
+        cd ..
+      fi
+    done
+
+    return
+  fi
+
   if ! [ -f ${META[0]}/Cargo.toml ]; then
     $CARGO clean
   else
@@ -78,3 +92,4 @@ clean_code() {
 }
 
 clean_code
+
