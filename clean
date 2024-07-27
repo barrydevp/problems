@@ -11,29 +11,20 @@ help() {
   Usage:
     clean --rs|zig|py --cf|dm <problem|empty for all>
 
-  Options:
-    -r, --rs    Rust source
-    -z, --zig   Zig source
-    -c, --cpp   C++ source
-        --c     C source
-    -p, --py    Python source
-
-    --cf        Codeforces
-    --dm        DMOJ based (VNOI, DMOJ)
-
-    -h, --help  Display help message
-
 EOF
+	help_options
 }
 
 clean_rust() {
-
 	if [ ${#META[@]} -eq 0 ]; then
 		# going through all the directories
 		for dir in $(ls -d */); do
 			if [ -f ${dir}Cargo.toml ]; then
 				cd $dir
 				$CARGO clean
+				if [ -f "./Cargo.lock" ]; then
+					rm Cargo.lock
+				fi
 				cd ..
 			fi
 		done
@@ -41,8 +32,11 @@ clean_rust() {
 		return
 	fi
 
-	if ! [ -f ${META[0]}/Cargo.toml ]; then
+	if [ -f "./Cargo.toml" ]; then
 		$CARGO clean
+		if [ -f "./Cargo.lock" ]; then
+			rm Cargo.lock
+		fi
 	else
 		echo "No code"
 	fi
@@ -53,11 +47,41 @@ clean_zig() {
 }
 
 clean_cpp() {
-	echo "TODO"
+	if [ ${#META[@]} -eq 0 ]; then
+		# going through all the directories
+		for dir in $(ls -d */); do
+			if [ -f ${dir}a.out ]; then
+				rm ${dir}a.out
+			fi
+		done
+
+		return
+	fi
+
+	if [ -f "./a.out" ]; then
+		rm ./a.out
+	else
+		echo "Empty"
+	fi
 }
 
 clean_c() {
-	echo "TODO"
+	if [ ${#META[@]} -eq 0 ]; then
+		# going through all the directories
+		for dir in $(ls -d */); do
+			if [ -f ${dir}a.out ]; then
+				rm ${dir}a.out
+			fi
+		done
+
+		return
+	fi
+
+	if ! [ -f ${META[0]}/a.out ]; then
+		rm ${dir}a.out
+	else
+		echo "No code"
+	fi
 }
 
 clean_python() {

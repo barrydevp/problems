@@ -7,6 +7,7 @@ set -e
 CODEFORCES="codeforces"
 DMOJ="dmoj"
 VNOI="dmoj"
+ATCODER="atcoder"
 RUST_SRC="rust"
 ZIG_SRC="zig"
 C_SRC="c"
@@ -35,6 +36,24 @@ LANGUAGE=""
 ARGS=()
 META=()
 HELP_FLAG=false
+
+help_options() {
+	cat <<EOF
+  Options:
+    -r, --rs    Rust source
+    -z, --zig   Zig source
+    -c, --cpp   C++ source
+        --c     C source
+    -p, --py    Python source
+
+    --cf        Codeforces
+    --dm        DMOJ based (VNOI, DMOJ)
+    --at        Atcoder
+    --none      No site
+
+    -h, --help  Display help message
+EOF
+}
 
 select_platform() {
 	case "$1" in
@@ -73,6 +92,10 @@ select_site() {
 	--dm)
 		SITE=$DMOJ
 		;;
+	--at)
+		SITE=$ATCODER
+		META=("$2")
+		;;
 	--none)
 		SITE=""
 		;;
@@ -98,6 +121,7 @@ setup_environment() {
 	fi
 
 	if [ ! -z "$SITE" ]; then
+		mkdir -p $SITE
 		cd $SITE
 	fi
 

@@ -11,19 +11,8 @@ help() {
   Usage:
     create --rs|zig|py --cf|dm <problem>
 
-  Options:
-    -r, --rs    Rust source
-    -z, --zig   Zig source
-    -c, --cpp   C++ source
-        --c     C source
-    -p, --py    Python source
-
-    --cf        Codeforces
-    --dm        DMOJ based (VNOI, DMOJ)
-
-    -h, --help  Display help message
-
 EOF
+	help_options
 }
 
 create_rust() {
@@ -34,8 +23,8 @@ create_rust() {
 		$CARGO init --lib --name "cf${META[0]}"
 		rm -rf ./src/lib.rs
 	fi
-	if ! [ -f "./src/bin/${META[0]}.rs" ]; then
-		touch ./src/bin/"${META[0]}a.rs"
+	if ! [ -f "./src/bin/${META[0]}a.rs" ]; then
+		touch ./src/bin/${META[0]}a.rs
 	fi
 }
 
@@ -44,7 +33,12 @@ create_zig() {
 }
 
 create_cpp() {
-	echo "TODO"
+	mkdir -p ${META[0]}
+	cd ${META[0]}
+
+	if ! [ -f "./a.cpp" ]; then
+		touch ./a.cpp
+	fi
 }
 
 create_c() {
