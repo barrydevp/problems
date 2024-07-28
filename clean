@@ -51,7 +51,7 @@ clean_cpp() {
 		# going through all the directories
 		for dir in $(ls -d */); do
 			if [ -f ${dir}a.out ]; then
-				rm ${dir}a.out
+				rm -r ${dir}a.out*
 			fi
 		done
 
@@ -59,7 +59,7 @@ clean_cpp() {
 	fi
 
 	if [ -f "./a.out" ]; then
-		rm ./a.out
+		rm -r ./a.out*
 	else
 		echo "Empty"
 	fi
@@ -70,17 +70,17 @@ clean_c() {
 		# going through all the directories
 		for dir in $(ls -d */); do
 			if [ -f ${dir}a.out ]; then
-				rm ${dir}a.out
+				rm -r ${dir}a.out*
 			fi
 		done
 
 		return
 	fi
 
-	if ! [ -f ${META[0]}/a.out ]; then
-		rm ${dir}a.out
+	if [ -f "./a.out" ]; then
+		rm -r ./a.out*
 	else
-		echo "No code"
+		echo "Empty"
 	fi
 }
 

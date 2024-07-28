@@ -24,13 +24,13 @@ run_zig() {
 }
 
 run_cpp() {
-	$CPP $2.cpp
+	$CPP -g $2.cpp
 	echo "Complication successful"
 	./a.out
 }
 
 run_c() {
-	$CC $2.c
+	$CC -g $2.c
 	echo "Complication successful"
 	./a.out
 }
