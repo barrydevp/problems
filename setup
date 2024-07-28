@@ -94,7 +94,7 @@ select_site() {
 		;;
 	--at)
 		SITE=$ATCODER
-		META=("$2")
+		META=($(echo $2))
 		;;
 	--none)
 		SITE=""
