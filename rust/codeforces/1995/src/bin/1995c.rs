@@ -69,16 +69,27 @@ fn main() {
 
                 let mut k = 0;
 
-                while x != 1 && x * x <= y {
+                // while x != 1 && x * x <= y {
+                //     x *= x;
+                //     k += 1;
+                // }
+
+                while y > x && x != 1 {
                     x *= x;
                     k += 1;
+                }
+                if x > y {
+                    k -= 1;
                 }
 
                 if a[i] < a[i - 1] {
                     c[i] = c[i - 1] + k;
-                    if x < y {
+                    if x != y {
                         c[i] += 1;
                     }
+                    // if x < y {
+                    //     c[i] += 1;
+                    // }
                 } else {
                     c[i] = max(c[i - 1] - k, 0);
                 }

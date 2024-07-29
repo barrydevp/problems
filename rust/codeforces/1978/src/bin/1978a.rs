@@ -41,22 +41,31 @@ fn main() {
     let mut scan = Scanner::default();
     let out = &mut BufWriter::new(stdout());
 
-    let nt = scan.next::<usize>();
-    for _ in 0..nt {
-        let n = scan.next::<usize>();
+    // let nt = scan.next::<usize>();
+    // for _ in 0..nt {
+    //     let n = scan.next::<usize>();
+    //
+    //     let (mut a, mut b) = (0, 0);
+    //
+    //     (0..n).for_each(|_| {
+    //         let v = scan.next::<usize>();
+    //
+    //         if a > b {
+    //             b = v;
+    //         } else {
+    //             a = v;
+    //         }
+    //     });
+    //
+    //     writeln!(out, "{}", a + b).ok();
+    // }
 
-        let (mut a, mut b) = (0, 0);
+    let x = scan.next::<u32>();
+    let y = scan.next::<u32>();
 
-        (0..n).for_each(|_| {
-            let v = scan.next::<usize>();
-
-            if a > b {
-                b = v;
-            } else {
-                a = v;
-            }
-        });
-
-        writeln!(out, "{}", a + b).ok();
+    if x * x < y {
+        println!("x*x < y");
+    } else {
+        println!("x*x >= y");
     }
 }
