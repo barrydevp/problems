@@ -68,13 +68,22 @@ fn main() {
         }
         let mut c = 'a';
         if max.1 == 1 && max.0 != a.len() {
-            c = if a[max.0 - 1] != 'a' && a[max.0] != 'a' {
-                'a'
-            } else if a[max.0 - 1] != 'b' && a[max.0] != 'b' {
-                'b'
-            } else {
-                'c'
-            }
+            // c = if a[max.0 - 1] != 'a' && a[max.0] != 'a' {
+            //     'a'
+            // } else if a[max.0 - 1] != 'b' && a[max.0] != 'b' {
+            //     'b'
+            // } else {
+            //     'c'
+            // };
+            c = (b'a'
+                + ((a[max.0] as u8).min(a[max.0 - 1] as u8) - b'a'
+                    + if (a[max.0] as u8).abs_diff(a[max.0 - 1] as u8) == 1 {
+                        1
+                    } else {
+                        0
+                    }
+                    + 1)
+                    % 26) as char;
         } else {
             c = (b'a' + (a[max.0 - 1] as u8 - b'a' + 1) % 26) as char;
         }
