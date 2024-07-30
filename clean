@@ -25,7 +25,7 @@ clean_rust() {
 				if [ -f "./Cargo.lock" ]; then
 					rm Cargo.lock
 				fi
-				rm -r target*
+				rm -rf target*
 				cd ..
 			fi
 		done
@@ -38,7 +38,7 @@ clean_rust() {
 		if [ -f "./Cargo.lock" ]; then
 			rm Cargo.lock
 		fi
-		rm -r target*
+		rm -rf target*
 	else
 		echo "No code"
 	fi
