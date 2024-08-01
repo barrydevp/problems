@@ -47,51 +47,43 @@ fn main() {
         let mut a = scan.next_chars();
 
         let mut ans = 0;
+        // let mut s = vec![];
+        //
+        // for i in 0..n {
+        //     if a[i] == '_' {
+        //         if s.len() == 0 {
+        //             a[i] = '(';
+        //             s.push(i);
+        //         } else {
+        //             a[i] = ')';
+        //             let v = s.pop().unwrap();
+        //             ans += i - v;
+        //         }
+        //     } else {
+        //         if a[i] == '(' {
+        //             s.push(i);
+        //         } else {
+        //             let v = s.pop().unwrap();
+        //             ans += i - v;
+        //         }
+        //     }
+        // }
+
+        ans = (n * (n + 1) / 2) as i32;
+        ans = -ans;
         let mut c = 0;
-        // for i in (1..n).step_by(2) {
-        //     if a[i] == '(' {
-        //         c += 1;
-        //     } else {
-        //         c -= 1;
-        //     }
-        // }
-        // for i in (1..n).step_by(2).rev() {
-        //     // println!("{:?}", c);
-        //     if a[i] == ')' {
-        //         if c >= 0 {
-        //             a[i - 1] = ')';
-        //         } else {
-        //             a[i - 1] = '(';
-        //         }
-        //         c += 1;
-        //     } else {
-        //         if c >= 0 {
-        //             a[i - 1] = '(';
-        //         } else {
-        //             a[i - 1] = ')';
-        //         }
-        //         c -= 1;
-        //     }
-        // }
-
-        let mut s = vec![];
-
         for i in 0..n {
-            if a[i] == '_' {
-                if s.len() == 0 {
-                    a[i] = '(';
-                    s.push(i);
-                } else {
-                    a[i] = ')';
-                    let v = s.pop().unwrap();
-                    ans += i - v;
-                }
+            if a[i] == '(' {
+                c += 1;
+            } else if a[i] == ')' {
+                c -= 1;
+                ans += (i as i32 + 1) * 2;
             } else {
-                if a[i] == '(' {
-                    s.push(i);
+                if c > 0 {
+                    ans += (i as i32 + 1) * 2;
+                    c -= 1;
                 } else {
-                    let v = s.pop().unwrap();
-                    ans += i - v;
+                    c += 1;
                 }
             }
         }

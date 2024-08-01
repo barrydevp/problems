@@ -37,6 +37,26 @@ impl Scanner {
     }
 }
 
+fn dfs(tree: &Vec<Vec<usize>>, nodes: &Vec<i32>, n: usize) -> i32 {
+    let mut k = i32::MAX;
+
+    for &v in &tree[n] {
+        let c = dfs(tree, nodes, v);
+        if c > nodes[n] {
+            k = k.min((c + nodes[n]) / 2);
+        } else {
+            k = k.min(c);
+        }
+        // println!("{} {} {}", n, v, k);
+    }
+
+    if k == i32::MAX {
+        nodes[n]
+    } else {
+        k
+    }
+}
+
 fn main() {
     let mut scan = Scanner::default();
     let out = &mut BufWriter::new(stdout());
@@ -44,13 +64,25 @@ fn main() {
     let nt = scan.next::<usize>();
     for _ in 0..nt {
         let n = scan.next::<usize>();
-        let a = scan.next_vec::<usize>(n);
-        let p = scan.next_vec::<usize>(n - 1);
-        let mut c = vec![vec![]; n];
+        // let mut v = vec![0; n];
+        // for i in 0..n {
+        //     v[i] = scan.next::<usize>();
+        // }
+        let v = scan.next_vec::<i32>(n);
+        let mut g = vec![vec![]; n];
         for i in 0..n - 1 {
-            c[p[i] - 1].push(i + 1)
+            let v = scan.next::<usize>() - 1;
+            g[v].push(i + 1);
         }
 
-        writeln!(out, "{}", 1).ok();
+        // let ans = dfs(&g, &v, 0);
+        let mut c = i32::MAX;
+
+        for &i in &g[0] {
+            c = c.min(dfs(&g, &v, i));
+            // println!("{} {}", i, c);
+        }
+
+        writeln!(out, "{}", c + v[0]).ok();
     }
 }
