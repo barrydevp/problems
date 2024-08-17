@@ -21,6 +21,22 @@ create_rust() {
 
 	if ! [ -f "./Cargo.toml" ]; then
 		$CARGO init --lib --name "cf${META[0]}"
+
+		case "$SITE" in
+		$CODEFORCES)
+			#
+			;;
+		$DMOJ)
+			$CARGO add dmoj
+			;;
+		$ATCODER)
+			$CARGO add proconio
+			;;
+		*)
+			#
+			;;
+		esac
+
 		rm -rf ./src/lib.rs
 	fi
 	if ! [ -f "./src/bin/${META[0]}a.rs" ]; then
